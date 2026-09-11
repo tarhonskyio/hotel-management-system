@@ -1,0 +1,78 @@
+@HotelManagement.Api_HostAddress = http://localhost:5114
+@JwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZW1vLXVzZXIiLCJuYW1lIjoiUE1TIE9wZXJhdG9yIiwiaXNzIjoiSG90ZWxNYW5hZ2VtZW50U3lzdGVtIiwiYXVkIjoiSG90ZWxNYW5hZ2VtZW50U3lzdGVtLkFwaSIsImV4cCI6MTg5MzQ1NjAwMCwiaWF0IjoxNzg4OTEyMDAwfQ.M9-p-1hJYAfepw8j9fQxxwImxbDRDB3F2M-E8MimuSo
+
+POST {{HotelManagement.Api_HostAddress}}/api/rooms
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "number": "204",
+  "type": "Double",
+  "capacity": 2,
+  "status": "Available"
+}
+
+###
+
+GET {{HotelManagement.Api_HostAddress}}/api/rooms
+Authorization: Bearer {{JwtToken}}
+Accept: application/json
+
+###
+
+POST {{HotelManagement.Api_HostAddress}}/api/reservations
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "guestFirstName": "Olena",
+  "guestLastName": "Kovalenko",
+  "email": "olena@example.com",
+  "checkIn": "2026-10-01",
+  "checkOut": "2026-10-05",
+  "roomId": "00000000-0000-0000-0000-000000000000",
+  "status": "Confirmed"
+}
+
+###
+
+GET {{HotelManagement.Api_HostAddress}}/api/reservations
+Authorization: Bearer {{JwtToken}}
+Accept: application/json
+
+###
+
+PUT {{HotelManagement.Api_HostAddress}}/api/reservations/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "status": "CheckedIn"
+}
+
+###
+
+POST {{HotelManagement.Api_HostAddress}}/api/parking/reservations/00000000-0000-0000-0000-000000000000/vehicles
+Authorization: Bearer {{JwtToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "registrationNumber": "AA 7777 BB"
+}
+
+###
+
+GET {{HotelManagement.Api_HostAddress}}/api/parking/access/AA7777BB
+Authorization: Bearer {{JwtToken}}
+Accept: application/json
+
+###
+
+DELETE {{HotelManagement.Api_HostAddress}}/api/reservations/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{JwtToken}}
+
+###

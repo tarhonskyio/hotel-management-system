@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.rsuser
+*.nupkg
+TestResults/
+coverage/
+.build/
+src/HotelManagement.Api/App_Data/DataProtectionKeys/
+src/HotelManagement.Api/appsettings.Local.json
+frontend/node_modules/
+frontend/dist/
