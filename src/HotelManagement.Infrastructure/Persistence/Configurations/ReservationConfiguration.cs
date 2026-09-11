@@ -8,7 +8,13 @@ public sealed class ReservationConfiguration : IEntityTypeConfiguration<Reservat
 {
     public void Configure(EntityTypeBuilder<Reservation> builder)
     {
-        builder.ToTable("reservations");
+        builder.ToTable("reservations", table =>
+        {
+            table.HasCheckConstraint("ck_reservations_check_out_after_check_in", "check_out > check_in");
+            table.HasCheckConstraint("ck_reservations_guest_first_name_not_empty", "length(trim(guest_first_name)) > 0");
+            table.HasCheckConstraint("ck_reservations_guest_last_name_not_empty", "length(trim(guest_last_name)) > 0");
+            table.HasCheckConstraint("ck_reservations_email_not_empty", "length(trim(email)) > 0");
+        });
         builder.HasKey(reservation => reservation.Id);
 
         builder.Property(reservation => reservation.Id).HasColumnName("id").HasColumnType("uuid").ValueGeneratedNever();

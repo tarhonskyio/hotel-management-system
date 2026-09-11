@@ -8,7 +8,10 @@ public sealed class ParkingLogConfiguration : IEntityTypeConfiguration<ParkingLo
 {
     public void Configure(EntityTypeBuilder<ParkingLog> builder)
     {
-        builder.ToTable("parking_logs");
+        builder.ToTable("parking_logs", table =>
+        {
+            table.HasCheckConstraint("ck_parking_logs_registration_number_not_empty", "length(trim(registration_number)) > 0");
+        });
         builder.HasKey(log => log.Id);
 
         builder.Property(log => log.Id).HasColumnName("id").HasColumnType("uuid").ValueGeneratedNever();
