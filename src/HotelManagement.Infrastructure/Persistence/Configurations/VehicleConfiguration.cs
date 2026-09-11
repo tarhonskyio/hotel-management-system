@@ -8,7 +8,11 @@ public sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 {
     public void Configure(EntityTypeBuilder<Vehicle> builder)
     {
-        builder.ToTable("vehicles");
+        builder.ToTable("vehicles", table =>
+        {
+            table.HasCheckConstraint("ck_vehicles_registration_number_not_empty", "length(trim(registration_number)) > 0");
+            table.HasCheckConstraint("ck_vehicles_access_to_after_access_from", "parking_access_to > parking_access_from");
+        });
         builder.HasKey(vehicle => vehicle.Id);
 
         builder.Property(vehicle => vehicle.Id).HasColumnName("id").HasColumnType("uuid").ValueGeneratedNever();

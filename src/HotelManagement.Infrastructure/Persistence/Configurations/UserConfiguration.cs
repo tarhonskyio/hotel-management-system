@@ -8,7 +8,12 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("users");
+        builder.ToTable("users", table =>
+        {
+            table.HasCheckConstraint("ck_users_username_not_empty", "length(trim(username)) > 0");
+            table.HasCheckConstraint("ck_users_email_not_empty", "length(trim(email)) > 0");
+            table.HasCheckConstraint("ck_users_password_hash_not_empty", "length(trim(password_hash)) > 0");
+        });
         builder.HasKey(user => user.Id);
 
         builder.Property(user => user.Id).HasColumnName("id").HasColumnType("uuid").ValueGeneratedNever();
